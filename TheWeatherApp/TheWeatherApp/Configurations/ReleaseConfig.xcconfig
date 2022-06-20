@@ -1,0 +1,12 @@
+//
+//  ReleaseConfig.xcconfig
+//  TheWeatherApp
+//
+//  Created by Oluwakamiye Akindele on 18/06/2022.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+WEATHER_API_KEY = mA5WGnDefDjuGKE82hqFweVHcokHb2O0
+BASE_URL = https:/$()/dataservice.accuweather.com/

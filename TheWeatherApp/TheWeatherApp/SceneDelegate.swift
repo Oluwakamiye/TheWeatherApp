@@ -2,7 +2,7 @@
 //  SceneDelegate.swift
 //  TheWeatherApp
 //
-//  Created by Oluwakamiye Akindele on 17/06/2022.
+//  Created by Oluwakamiye Akindele on 18/06/2022.
 //
 
 import UIKit
@@ -45,6 +45,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+
+        // Save changes in the application's managed object context when the application transitions to the background.
+        (UIApplication.shared.delegate as? AppDelegate)?.saveContext()
     }
 
 
