@@ -18,7 +18,6 @@ final class WeatherTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -30,11 +29,15 @@ final class WeatherTableViewCell: UITableViewCell {
         containingView.layer.cornerRadius = 10
         locationLabel.text = city.englishName
         timeLabel.text = Date().getTimeIn12HourFormat()
-        performSelector(inBackground: #selector(fetchCurrentConditionsForCity), with: nil)
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+            self?.fetchCurrentConditionsForCity()
+            self?.fetchTemperatureRangeForCity()
+        }
     }
     
+    // Multithreaded API call to get currentCity Conditions
     @objc private func fetchCurrentConditionsForCity() {
-        NetworkingService.shared.get(url: "\(URLConstants.getCurrentConditions.rawValue)/\(city.key)",
+        NetworkingService().get(url: "\(URLConstants.getCurrentConditions.rawValue)\(city.key)",
                                      parameters: [:],
                                      completion: { [weak self] (result) in
             DispatchQueue.main.async {
@@ -56,9 +59,36 @@ final class WeatherTableViewCell: UITableViewCell {
         guard let currentCondition = currentConditions.first else {
             return
         }
-        timeLabel.text = currentCondition.localObservationDateTime.getTimeIn12HourFormat()
+        let dateFormatter = ISO8601DateFormatter()
+        timeLabel.text = "\(dateFormatter.date(from: currentCondition.localObservationDateTime)!.getTimeIn12HourFormat())"
         descriptionLabel.text = currentCondition.weatherText
         temperatureLabel.text = "\(currentCondition.temperature.imperial.value)℉"
-        secondaryTemperatureLabel.text = "metric: \(currentCondition.temperature.metric.value)℃"
+    }
+    
+    // Multithreaded API call to get currentCity Temperature range
+    @objc private func fetchTemperatureRangeForCity() {
+        NetworkingService().get(url: "\(URLConstants.get1DayForecast.rawValue)\(city.key)",
+                                     parameters: [:],
+                                     completion: { [weak self] (result) in
+            DispatchQueue.main.async {
+                self?.handleReturnedForecast(result: result)
+            }
+        })
+    }
+    
+    private func handleReturnedForecast(result: Result<ForecastResponse, Error>) {
+        switch result {
+        case .success(let dayForecastResponse):
+            setupDayForecastResponse(dayForecastResponse: dayForecastResponse)
+        case .failure(let error):
+            print("Error: \(error.localizedDescription)")
+        }
+    }
+    
+    private func setupDayForecastResponse(dayForecastResponse: ForecastResponse) {
+        guard let dayForecastResponse = dayForecastResponse.dailyForecasts.first else {
+            return
+        }
+        secondaryTemperatureLabel.text = "H: \(Int(dayForecastResponse.temperature.maximum.value))° L: \(Int(dayForecastResponse.temperature.minimum.value))°"
     }
 }

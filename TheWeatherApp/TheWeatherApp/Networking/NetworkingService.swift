@@ -11,18 +11,16 @@ import Alamofire
 typealias URLRequestParameters = [String: Any]
 
 final class NetworkingService {
-    static var shared = NetworkingService()
-    private var baseURL: String!
+    private let baseURL: String = "https://dataservice.accuweather.com/"
     private var weatherAPIKey: String!
     private var basicRequestParameters: URLRequestParameters!
     
-    private init() {
+    init() {
+        
         guard let pList = Bundle.main.infoDictionary,
-              let weatherAPIKey = pList[InfoListKeys.weatherAPIKey.rawValue] as? String,
-              let baseURL = pList[InfoListKeys.baseURL.rawValue] as? String else {
+              let weatherAPIKey = pList[InfoListKeys.weatherAPIKey.rawValue] as? String else {
             return
         }
-        self.baseURL = baseURL
         self.weatherAPIKey = weatherAPIKey
         self.basicRequestParameters = [
             URLRequestParameterHeader.apikey.rawValue: weatherAPIKey,
@@ -33,8 +31,7 @@ final class NetworkingService {
     func get<T:Decodable>(url: String,
                           parameters: URLRequestParameters,
                           completion: @escaping (Result<T, Error>) -> Void) {
-        guard let baseURL = baseURL,
-              let basicRequestParameters = basicRequestParameters else {
+        guard let basicRequestParameters = basicRequestParameters else {
             return
         }
         var callParameters = basicRequestParameters
@@ -52,7 +49,6 @@ final class NetworkingService {
             }
     }
 }
-
 
 enum URLRequestParameterHeader: String {
     case apikey

@@ -1,5 +1,5 @@
 //
-//  WeatherViewController.swift
+//  SavedWeatherCitiesViewController.swift
 //  TheWeatherApp
 //
 //  Created by Oluwakamiye Akindele on 19/06/2022.
@@ -7,10 +7,17 @@
 
 import UIKit
 
-final class WeatherViewController: UIViewController {
+final class SavedWeatherCitiesViewController: UIViewController {
     @IBOutlet private(set) weak var tableView: UITableView!
-    
     private var viewModel =  WeatherViewModel()
+    
+    private lazy var refreshControl: UIRefreshControl = {
+       let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .red
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.addTarget(self, action: #selector(forceCitiesRefresh), for: .valueChanged)
+        return refreshControl
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,10 +25,24 @@ final class WeatherViewController: UIViewController {
         viewModel.delegate = self
         tableView.register(UINib(nibName: String(describing: WeatherTableViewCell.self), bundle: nil),
                            forCellReuseIdentifier: String(describing: WeatherTableViewCell.self))
+        tableView.refreshControl = refreshControl
         tableView.delegate = self
         tableView.dataSource = self
         setupNavigationSearchBar()
         viewModel.searchCity()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.fetchCities()
+        navigationItem.title = "Saved Cities"
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setToolbarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
     private func setupNavigationSearchBar() {
@@ -31,18 +52,25 @@ final class WeatherViewController: UIViewController {
         self.navigationItem.searchController = searchBarController
     }
     
-    static func makeSelf() -> WeatherViewController? {
-        guard let destinationVC = UIStoryboard.storyboard(.Main).instantiateViewController(withIdentifier: WeatherViewController.className) as? WeatherViewController else {
+    @objc private func forceCitiesRefresh() {
+        viewModel.fetchCities()
+    }
+    
+    static func makeSelf() -> SavedWeatherCitiesViewController? {
+        guard let destinationVC = UIStoryboard.storyboard(.Main).instantiateViewController(withIdentifier: SavedWeatherCitiesViewController.className) as? SavedWeatherCitiesViewController else {
             return nil
         }
         return destinationVC
     }
-    
 }
 
 // MARK: - SearchBar Delegates
-extension WeatherViewController: UISearchBarDelegate, UISearchControllerDelegate {
+extension SavedWeatherCitiesViewController: UISearchBarDelegate, UISearchControllerDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        viewModel.searchCity(cityName: searchBar.text)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.searchCity(cityName: searchBar.text)
     }
     
@@ -56,7 +84,7 @@ extension WeatherViewController: UISearchBarDelegate, UISearchControllerDelegate
 }
 
 // MARK: - TableView Delegates
-extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
+extension SavedWeatherCitiesViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewModel.displayedCities.count
     }
@@ -73,18 +101,26 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(viewModel.displayedCities[indexPath.row].englishName)
+        tableView.deselectRow(at: indexPath, animated: true)
+        let city = viewModel.displayedCities[indexPath.row]
+        guard let destinationVC = CityDetailViewController.makeSelf(city: city) else {
+            return
+        }
+        present(destinationVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 110
     }
 }
 
 
 // MARK: - ViewModel Delegates
-extension WeatherViewController: WeatherViewModelDelegate {
+extension SavedWeatherCitiesViewController: WeatherViewModelDelegate {
     func updateTable(){
         tableView.reloadData()
+        if refreshControl.isRefreshing {
+            refreshControl.endRefreshing()
+        }
     }
 }

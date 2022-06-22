@@ -15,13 +15,19 @@ final class SearchCityViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         viewModel.delegate = self
         tableView.register(UINib(nibName: String(describing: CityTableViewCell.self), bundle: nil),
                            forCellReuseIdentifier: String(describing: CityTableViewCell.self))
         tableView.delegate = self
         tableView.dataSource = self
         searchBar.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.title = "Search Cities"
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+        navigationController?.setToolbarHidden(true, animated: false)
     }
     
     static func makeSelf() -> SearchCityViewController? {
@@ -32,16 +38,14 @@ final class SearchCityViewController: UIViewController {
     }
 }
 
-
 // MARK: - Searchbar Delegates
 extension SearchCityViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         if let searchText = searchBar.text {
-            viewModel.searchForCity(city: searchText)
+            viewModel.searchForCity(cityName: searchText)
         }
     }
 }
-
 
 // MARK: - TableView Delegates
 extension SearchCityViewController: UITableViewDelegate, UITableViewDataSource {
@@ -51,6 +55,11 @@ extension SearchCityViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+        let city = viewModel.cities[indexPath.row]
+        guard let destinationVC = CityDetailViewController.makeSelf(city: city) else {
+            return
+        }
+        present(destinationVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,10 +73,9 @@ extension SearchCityViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 90
     }
 }
-
 
 // MARK: - ViewModel Delegates
 extension SearchCityViewController: SearchCityViewModelDelegate {

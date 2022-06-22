@@ -15,18 +15,18 @@ final class SearchCityViewModel: NSObject {
     weak var delegate: SearchCityViewModelDelegate?
     private(set) var cities: [City] = [City]()
     
-    func searchForCity(city: String? = nil) {
+    func searchForCity(cityName: String? = nil) {
         guard let delegate = delegate,
-            let city = city else {
+            let cityName = cityName else {
             return
         }
-        if city.isEmpty {
+        if cityName.isEmpty {
             cities = [City]()
             delegate.updateTable()
         } else {
-            NetworkingService.shared.get(url: URLConstants.citySearch.rawValue,
+            NetworkingService().get(url: URLConstants.citySearch.rawValue,
                                          parameters: [
-                                            URLRequestParameterHeader.q.rawValue: city
+                                            URLRequestParameterHeader.q.rawValue: cityName
                                          ],
                                          completion: { [weak self] (result) in
                 self?.handleReturnedCities(delegate: delegate, result: result)

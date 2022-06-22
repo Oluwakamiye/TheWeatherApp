@@ -8,7 +8,8 @@
 import Foundation
 
 enum URLConstants: String {
-    case getForecast = "forecasts/v1/daily/5day/"
+    case get5DayForecast = "forecasts/v1/daily/5day/"
+    case get1DayForecast = "forecasts/v1/daily/1day/"
     case citySearch = "locations/v1/cities/search"
     case geoPositionSearch = "locations/v1/cities/geoposition/search"
     case getCurrentConditions = "currentconditions/v1/"

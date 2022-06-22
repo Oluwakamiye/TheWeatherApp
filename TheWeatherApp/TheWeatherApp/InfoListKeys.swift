@@ -10,5 +10,4 @@ import Foundation
 
 enum InfoListKeys: String {
     case weatherAPIKey = "WEATHER_API_KEY"
-    case baseURL = "BASE_URL"
 }

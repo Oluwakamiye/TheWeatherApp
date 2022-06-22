@@ -8,29 +8,40 @@
 import Foundation
 
 protocol WeatherDetailViewModelDelegate: BaseViewModelDelegate {
-    func setupCityLabel(weatherInformation: NSAttributedString)
-    func setupDailyForecast(forecasts: [DailyForecast])
+    func reloadCollectionView()
 }
 
 final class WeatherDetailViewModel: NSObject {
     weak var delegate: WeatherDetailViewModelDelegate?
-    private var forecast: ForecastResponse!
-    private var cityName: String!
+    private(set) var cities = [City]()
     
-    func setValues(cityName: String, weatherForecast: ForecastResponse) {
-        self.cityName = cityName
-        self.forecast = weatherForecast
+    override init() {
+        super.init()
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(updateAddedCities),
+                                               name: SharedAppData.updatedAddedCitiesNotification,
+                                               object: nil)
     }
     
-    func getWeatherValues() {
+    @objc private func updateAddedCities() {
+        cities = SharedAppData.shared.addedCities
         guard let delegate = delegate else {
             return
         }
-//        delegate.setupCityLabel(weatherInformation: <#T##NSAttributedString#>)
-        delegate.setupDailyForecast(forecasts: forecast.dailyForecasts)
+        delegate.reloadCollectionView()
     }
     
-    private func generateAttributedString() {
-        
+    func fetchCities() {
+        guard let delegate = delegate else {
+            return
+        }
+        cities = SharedAppData.shared.addedCities
+        delegate.reloadCollectionView()
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: SharedAppData.updatedAddedCitiesNotification,
+                                                  object: nil)
     }
 }

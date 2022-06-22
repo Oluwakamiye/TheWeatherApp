@@ -8,5 +8,5 @@
 // Configuration settings file format documentation can be found at:
 // https://help.apple.com/xcode/#/dev745c5c974
 
-WEATHER_API_KEY = mA5WGnDefDjuGKE82hqFweVHcokHb2O0
+WEATHER_API_KEY = Gl2hXNtR9DPotbeEF7bPDPj5FuABokPr // Will be removed/deactivated after 10 days
 BASE_URL = https:/$()/dataservice.accuweather.com/

@@ -28,6 +28,20 @@ final class WeatherViewModel: NSObject {
     
     @objc private func updateAddedCities() {
         cities = SharedAppData.shared.addedCities
+        guard let delegate = delegate else {
+            return
+        }
+        displayedCities = cities
+        delegate.updateTable()
+    }
+    
+    func fetchCities() {
+        guard let delegate = delegate else {
+            return
+        }
+        cities = SharedAppData.shared.addedCities
+        displayedCities = cities
+        delegate.updateTable()
     }
     
     func searchCity(cityName: String? = nil) {

@@ -11,8 +11,7 @@ class CityTableViewCell: UITableViewCell {
     @IBOutlet private(set) weak var containingView: UIView!
     @IBOutlet private(set) weak var cityLabel: UILabel!
     @IBOutlet private(set) weak var countryLabel: UILabel!
-    @IBOutlet private(set) weak var actionImage: UIImageView!
-    @IBOutlet private(set) weak var actionText: UILabel!
+    @IBOutlet private(set) weak var postCodeLabel: UILabel!
     
     private var city: City!
     private let sharedAppData = SharedAppData.shared
@@ -32,22 +31,6 @@ class CityTableViewCell: UITableViewCell {
         containingView.layer.cornerRadius = 10
         cityLabel.text = city.englishName
         countryLabel.text = city.country.englishName
-        updateActionViews()
-    }
-    
-    private func updateActionViews() {
-        let isCityAdded: Bool = sharedAppData.addedCities.contains(where: { $0.key == city.key})
-        actionImage.image = UIImage(systemName: isCityAdded ? "plus": "checkmark")
-        actionText.text = isCityAdded ? "remove" : "add"
-    }
-    
-    @IBAction func addOrRemoveCity(_ sender: UIButton) {
-        let isCityAdded: Bool = sharedAppData.addedCities.contains(where: { $0.key == city.key})
-        if isCityAdded {
-            sharedAppData.removeCity(city: city)
-        } else {
-            sharedAppData.addNewCity(city: city)
-        }
-        updateActionViews()
+        postCodeLabel.text = city.primaryPostalCode
     }
 }
