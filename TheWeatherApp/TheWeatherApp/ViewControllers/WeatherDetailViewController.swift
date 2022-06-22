@@ -10,8 +10,8 @@ import UIKit
 final class WeatherDetailViewController: UICollectionViewController {
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
-        pageControl.pageIndicatorTintColor = .gray
-        pageControl.currentPageIndicatorTintColor = .red
+        pageControl.pageIndicatorTintColor = .systemGray2
+        pageControl.currentPageIndicatorTintColor = .systemRed
         pageControl.hidesForSinglePage = true
         pageControl.addTarget(self, action: #selector(pageControltapped), for: .valueChanged)
         return pageControl
@@ -20,7 +20,7 @@ final class WeatherDetailViewController: UICollectionViewController {
         let button = UIButton()
         button.setTitle("", for: .normal)
         button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        button.tintColor = .red
+        button.tintColor = .systemPink
         button.addTarget(self, action: #selector(goToSearchCities), for: .touchUpInside)
         return button
     }()
@@ -28,7 +28,7 @@ final class WeatherDetailViewController: UICollectionViewController {
         let button = UIButton()
         button.setTitle("", for: .normal)
         button.setImage(UIImage(systemName: "list.bullet"), for: .normal)
-        button.tintColor = .red
+        button.tintColor = .systemPink
         button.addTarget(self, action: #selector(goToAddedCities), for: .touchUpInside)
         return button
     }()
