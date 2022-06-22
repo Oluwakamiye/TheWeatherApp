@@ -196,6 +196,9 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <bool key="isElement" value="YES"/>
+                                                        </accessibility>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="tuM-Gn-ojH" secondAttribute="trailing" constant="5" id="OHS-zo-HNz"/>
                                                             <constraint firstItem="tuM-Gn-ojH" firstAttribute="centerY" secondItem="JxJ-hd-dEh" secondAttribute="centerY" id="PoU-5C-1dZ"/>
@@ -222,6 +225,9 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <bool key="isElement" value="YES"/>
+                                                        </accessibility>
                                                         <constraints>
                                                             <constraint firstItem="osS-yF-00f" firstAttribute="centerY" secondItem="S8e-HW-JwJ" secondAttribute="centerY" id="W1K-4Q-Svb"/>
                                                             <constraint firstAttribute="height" constant="45" id="lWI-fF-hrZ"/>
@@ -248,6 +254,9 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <bool key="isElement" value="YES"/>
+                                                        </accessibility>
                                                         <constraints>
                                                             <constraint firstItem="iW4-X1-fjH" firstAttribute="leading" secondItem="toJ-2D-aqO" secondAttribute="trailing" constant="10" id="04a-PJ-tnD"/>
                                                             <constraint firstItem="iW4-X1-fjH" firstAttribute="centerY" secondItem="YYE-L3-fqk" secondAttribute="centerY" id="MZ6-Ub-Ss9"/>
@@ -274,6 +283,9 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <bool key="isElement" value="YES"/>
+                                                        </accessibility>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="NBy-6H-CIO" secondAttribute="trailing" constant="5" id="U33-27-rG7"/>
                                                             <constraint firstItem="7vT-4m-HUe" firstAttribute="centerY" secondItem="IVY-nO-F8C" secondAttribute="centerY" id="ZeJ-bb-fhT"/>
@@ -300,6 +312,9 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                                        <accessibility key="accessibilityConfiguration">
+                                                            <bool key="isElement" value="YES"/>
+                                                        </accessibility>
                                                         <constraints>
                                                             <constraint firstItem="HFS-Fm-koa" firstAttribute="leading" secondItem="cA7-cs-EJu" secondAttribute="leading" constant="5" id="2CD-Yn-dHs"/>
                                                             <constraint firstAttribute="height" constant="45" id="O27-5i-ckx"/>
