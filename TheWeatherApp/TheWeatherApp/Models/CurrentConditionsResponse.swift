@@ -9,14 +9,15 @@ import Foundation
 
 // MARK: - CurrentConditionsResponse
 struct CurrentConditionsResponse: Codable {
-    let localObservationDateTime: Date
+    let localObservationDateTime: String
     let epochTime: Int
     let weatherText: String
     let weatherIcon: Int
     let hasPrecipitation: Bool
     let isDayTime: Bool
     let temperature: CurrentTemperature
-    let mobileLink, link: String
+    let mobileLink: String
+    let link: String
     
     enum CodingKeys: String, CodingKey {
         case localObservationDateTime = "LocalObservationDateTime"

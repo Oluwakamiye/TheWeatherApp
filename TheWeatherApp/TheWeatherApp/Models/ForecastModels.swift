@@ -20,13 +20,13 @@ struct ForecastResponse: Codable {
 
 // MARK: - Headline
 struct Headline: Codable {
-    let effectiveDate: Date
+    let effectiveDate: String
     let effectiveEpochDate: Int
     let severity: Int
     let text: String
     let category: String
-    let endDate: Date
-    let endEpochDate: Int
+//    let endDate: String?
+//    let endEpochDate: Int?
     let mobileLink: String
     let link: String
     
@@ -36,8 +36,8 @@ struct Headline: Codable {
         case severity = "Severity"
         case text = "Text"
         case category = "Category"
-        case endDate = "EndDate"
-        case endEpochDate = "EndEpochDate"
+//        case endDate = "EndDate"
+//        case endEpochDate = "EndEpochDate"
         case mobileLink = "MobileLink"
         case link = "Link"
     }
@@ -46,7 +46,7 @@ struct Headline: Codable {
 
 // MARK: - DailyForecast
 struct DailyForecast: Codable {
-    let date: Date
+    let date: String
     let epochDate: Int
     let temperature: Temperature
     let day: Day
@@ -90,9 +90,9 @@ struct Temperature: Codable {
 
 // MARK: - MinMaxTemperature
 struct TemperatureType: Codable {
-    let value: String
+    let value: Double
     let unit: String
-    let unitType: String
+    let unitType: Int
     
     enum CodingKeys: String, CodingKey {
         case value = "Value"
