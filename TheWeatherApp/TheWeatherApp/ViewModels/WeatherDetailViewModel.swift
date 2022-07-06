@@ -9,6 +9,7 @@ import Foundation
 
 protocol WeatherDetailViewModelDelegate: BaseViewModelDelegate {
     func reloadCollectionView()
+    func updateCollectionView(shouldShowCollectionView: Bool)
 }
 
 final class WeatherDetailViewModel: NSObject {
@@ -29,6 +30,7 @@ final class WeatherDetailViewModel: NSObject {
             return
         }
         delegate.reloadCollectionView()
+        delegate.updateCollectionView(shouldShowCollectionView: cities.count > 0)
     }
     
     func fetchCities() {
@@ -37,6 +39,7 @@ final class WeatherDetailViewModel: NSObject {
         }
         cities = SharedAppData.shared.addedCities
         delegate.reloadCollectionView()
+        delegate.updateCollectionView(shouldShowCollectionView: cities.count > 0)
     }
     
     deinit {
