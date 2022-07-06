@@ -7,7 +7,10 @@
 
 import UIKit
 
-final class WeatherDetailViewController: UICollectionViewController {
+final class WeatherDetailViewController: UIViewController {
+    @IBOutlet private(set) weak var emptyDataLabel: UILabel!
+    @IBOutlet private(set) weak var collectionView: UICollectionView!
+    
     private lazy var pageControl: UIPageControl = {
         let pageControl = UIPageControl()
         pageControl.pageIndicatorTintColor = .systemGray2
@@ -38,6 +41,8 @@ final class WeatherDetailViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.delegate = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         collectionView.register(UINib(nibName: String(describing: WeatherDetailCollectionViewCell.self), bundle: nil), forCellWithReuseIdentifier: String(describing: WeatherDetailCollectionViewCell.self))
         collectionView.collectionViewLayout = generateLayout()
         pageControl.numberOfPages = viewModel.cities.count
@@ -54,7 +59,7 @@ final class WeatherDetailViewController: UICollectionViewController {
         navigationController?.setToolbarHidden(false, animated: false)
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
-
+    
     @objc private func goToSearchCities() {
         guard let destinationVC = SearchCityViewController.makeSelf() else  {
             return
@@ -103,18 +108,18 @@ final class WeatherDetailViewController: UICollectionViewController {
 
 // MARK: - CollectionView and PageControl Delegate
 extension WeatherDetailViewController: UICollectionViewDelegateFlowLayout {
-    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         self.pageControl.currentPage = indexPath.row
     }
 }
 
 // MARK: - CollectionView Delegate
-extension WeatherDetailViewController {
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+extension WeatherDetailViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         viewModel.cities.count
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let city = viewModel.cities[indexPath.row]
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: WeatherDetailCollectionViewCell.self), for: indexPath) as? WeatherDetailCollectionViewCell {
             cell.configureCell(city: city)
@@ -131,5 +136,10 @@ extension WeatherDetailViewController: WeatherDetailViewModelDelegate {
         pageControl.numberOfPages = viewModel.cities.count
         pageControl.currentPage = 0
         collectionView.reloadData()
+    }
+    
+    func updateCollectionView(shouldShowCollectionView: Bool) {
+        emptyDataLabel.isHidden = shouldShowCollectionView
+        collectionView.isHidden = !shouldShowCollectionView
     }
 }
