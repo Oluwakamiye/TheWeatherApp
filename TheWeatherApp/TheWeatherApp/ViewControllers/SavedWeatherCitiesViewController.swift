@@ -9,7 +9,7 @@ import UIKit
 
 final class SavedWeatherCitiesViewController: UIViewController {
     @IBOutlet private(set) weak var tableView: UITableView!
-    private var viewModel =  WeatherViewModel()
+    private var viewModel: WeatherViewModel!
     
     private lazy var refreshControl: UIRefreshControl = {
        let refreshControl = UIRefreshControl()
@@ -60,6 +60,7 @@ final class SavedWeatherCitiesViewController: UIViewController {
         guard let destinationVC = UIStoryboard.storyboard(.Main).instantiateViewController(withIdentifier: SavedWeatherCitiesViewController.className) as? SavedWeatherCitiesViewController else {
             return nil
         }
+        destinationVC.viewModel = WeatherViewModel()
         return destinationVC
     }
 }
@@ -103,10 +104,7 @@ extension SavedWeatherCitiesViewController: UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let city = viewModel.displayedCities[indexPath.row]
-        guard let destinationVC = CityDetailViewController.makeSelf(city: city) else {
-            return
-        }
-        present(destinationVC, animated: true)
+        viewModel.savedCitySelected(city: city)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -122,5 +120,12 @@ extension SavedWeatherCitiesViewController: WeatherViewModelDelegate {
         if refreshControl.isRefreshing {
             refreshControl.endRefreshing()
         }
+    }
+    
+    func navigateToCityDetailViewController(city: City) {
+        guard let destinationVC = CityDetailViewController.makeSelf(city: city) else {
+            return
+        }
+        present(destinationVC, animated: true)
     }
 }

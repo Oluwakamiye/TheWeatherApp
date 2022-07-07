@@ -10,13 +10,12 @@ import Alamofire
 
 typealias URLRequestParameters = [String: Any]
 
-final class NetworkingService {
+struct NetworkingService {
     private let baseURL: String = "https://dataservice.accuweather.com/"
     private var weatherAPIKey: String!
     private var basicRequestParameters: URLRequestParameters!
     
     init() {
-        
         guard let pList = Bundle.main.infoDictionary,
               let weatherAPIKey = pList[InfoListKeys.weatherAPIKey.rawValue] as? String else {
             return
@@ -40,7 +39,8 @@ final class NetworkingService {
         }
         _ = AF.request(baseURL + url, method: .get, parameters: callParameters)
             .validate()
-            .responseDecodable(of: T.self) { (response) in
+            .responseDecodable(of: T.self) {(response) in
+               
                 if let error = response.error {
                     completion(.failure(error))
                 } else if let responseValue = response.value {

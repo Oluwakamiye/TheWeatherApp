@@ -130,7 +130,7 @@ extension WeatherDetailViewController: UICollectionViewDelegate, UICollectionVie
     }
 }
 
-// MARK: - ViewModelDelegates
+// MARK: - ViewModel Delegates
 extension WeatherDetailViewController: WeatherDetailViewModelDelegate {
     func reloadCollectionView() {
         pageControl.numberOfPages = viewModel.cities.count
