@@ -11,7 +11,7 @@ final class SearchCityViewController: UIViewController {
     @IBOutlet private(set) weak var searchBar: UISearchBar!
     @IBOutlet private(set) weak var tableView: UITableView!
     
-    private var viewModel = SearchCityViewModel()
+    private var viewModel: SearchCityViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +34,7 @@ final class SearchCityViewController: UIViewController {
         guard let destinationVC = UIStoryboard.storyboard(.Main).instantiateViewController(withIdentifier: SearchCityViewController.className) as? SearchCityViewController else {
             return nil
         }
+        destinationVC.viewModel = SearchCityViewModel()
         return destinationVC
     }
 }
@@ -56,10 +57,7 @@ extension SearchCityViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let city = viewModel.cities[indexPath.row]
-        guard let destinationVC = CityDetailViewController.makeSelf(city: city) else {
-            return
-        }
-        present(destinationVC, animated: true)
+        viewModel.tableViewTapped(city: city)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -79,6 +77,13 @@ extension SearchCityViewController: UITableViewDelegate, UITableViewDataSource {
 
 // MARK: - ViewModel Delegates
 extension SearchCityViewController: SearchCityViewModelDelegate {
+    func navigateToCityDetailView(city: City) {
+        guard let destinationVC = CityDetailViewController.makeSelf(city: city) else {
+            return
+        }
+        present(destinationVC, animated: true)
+    }
+    
     func updateTable() {
         tableView.reloadData()
     }

@@ -6,10 +6,12 @@
 //
 
 import Foundation
+import UIKit
 
 
 protocol WeatherViewModelDelegate: AnyObject {
     func updateTable()
+    func navigateToCityDetailViewController(city: City)
 }
 
 final class WeatherViewModel: NSObject {
@@ -56,6 +58,13 @@ final class WeatherViewModel: NSObject {
             displayedCities = cities
             delegate.updateTable()
         }
+    }
+    
+    func savedCitySelected(city: City) {
+        guard let delegate = delegate else {
+            return
+        }
+        delegate.navigateToCityDetailViewController(city: city)
     }
     
     deinit {

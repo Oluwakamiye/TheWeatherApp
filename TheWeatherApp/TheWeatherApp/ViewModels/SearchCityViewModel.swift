@@ -9,6 +9,7 @@ import Foundation
 
 protocol SearchCityViewModelDelegate: BaseViewModelDelegate {
     func updateTable()
+    func navigateToCityDetailView(city: City)
 }
 
 final class SearchCityViewModel: NSObject {
@@ -42,5 +43,12 @@ final class SearchCityViewModel: NSObject {
         case .failure(let error):
             print("Error: \(error.localizedDescription)")
         }
+    }
+    
+    func tableViewTapped(city: City) {
+        guard let delegate = delegate else {
+            return
+        }
+        delegate.navigateToCityDetailView(city: city)
     }
 }
