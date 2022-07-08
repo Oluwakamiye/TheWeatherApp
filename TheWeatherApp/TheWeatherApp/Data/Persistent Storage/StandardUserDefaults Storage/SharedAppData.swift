@@ -7,7 +7,7 @@
 
 import Foundation
 
-class SharedAppData {
+final class SharedAppData {
     static let shared = SharedAppData()
     static let updatedAddedCitiesNotification = Notification.Name("AddedCitiesUpdated")
     private(set) var addedCities: [City] = [City]() {
