@@ -9,7 +9,7 @@ import UIKit
 
 final class SavedWeatherCitiesViewController: UIViewController {
     @IBOutlet private(set) weak var tableView: UITableView!
-    private var viewModel: WeatherViewModel!
+    private var viewModel: SavedWeatherCitiesViewModel!
     
     private lazy var refreshControl: UIRefreshControl = {
        let refreshControl = UIRefreshControl()
@@ -60,7 +60,7 @@ final class SavedWeatherCitiesViewController: UIViewController {
         guard let destinationVC = UIStoryboard.storyboard(.Main).instantiateViewController(withIdentifier: SavedWeatherCitiesViewController.className) as? SavedWeatherCitiesViewController else {
             return nil
         }
-        destinationVC.viewModel = WeatherViewModel()
+        destinationVC.viewModel = SavedWeatherCitiesViewModel()
         return destinationVC
     }
 }
@@ -114,7 +114,7 @@ extension SavedWeatherCitiesViewController: UITableViewDelegate, UITableViewData
 
 
 // MARK: - ViewModel Delegates
-extension SavedWeatherCitiesViewController: WeatherViewModelDelegate {
+extension SavedWeatherCitiesViewController: SavedWeatherCitiesViewModelDelegate {
     func updateTable(){
         tableView.reloadData()
         if refreshControl.isRefreshing {

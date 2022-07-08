@@ -4,7 +4,6 @@
 //
 //  Created by Oluwakamiye Akindele on 20/06/2022.
 //
-
 import Foundation
 
 protocol WeatherDetailViewModelDelegate: BaseViewModelDelegate {

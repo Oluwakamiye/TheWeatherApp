@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DailyForecastTableViewCell: UITableViewCell {
+final class DailyForecastTableViewCell: UITableViewCell {
     @IBOutlet private(set) weak var dayLabel: UILabel!
     @IBOutlet private(set) weak var dayForecastLabel: UILabel!
     @IBOutlet private(set) weak var nightForecastLabel: UILabel!
@@ -52,5 +52,4 @@ class DailyForecastTableViewCell: UITableViewCell {
             return dayDateFormatter.string(from: givenDateFromString)
         }
     }
-    
 }

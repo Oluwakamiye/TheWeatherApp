@@ -54,12 +54,6 @@ extension SearchCityViewController: UITableViewDelegate, UITableViewDataSource {
         return viewModel.cities.count
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        let city = viewModel.cities[indexPath.row]
-        viewModel.tableViewTapped(city: city)
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let city = viewModel.cities[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CityTableViewCell.self), for: indexPath) as? CityTableViewCell {
@@ -68,6 +62,12 @@ extension SearchCityViewController: UITableViewDelegate, UITableViewDataSource {
         } else {
             return UITableViewCell()
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let city = viewModel.cities[indexPath.row]
+        viewModel.tableViewTapped(city: city)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

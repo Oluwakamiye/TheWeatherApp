@@ -13,12 +13,12 @@ class SharedAppData {
     private(set) var addedCities: [City] = [City]() {
         didSet {
             NotificationCenter.default.post(name: SharedAppData.updatedAddedCitiesNotification, object: nil)
-            StandardUserDefaults.setCities(cities: addedCities)
+            StandardUserDefaultsHelper.setCities(cities: addedCities)
         }
     }
     
     private init() {
-        addedCities = StandardUserDefaults.getCities() ?? [City]()
+        addedCities = StandardUserDefaultsHelper.getCities() ?? [City]()
     }
     
     func setAddedCities(addedCities: [City]) {
