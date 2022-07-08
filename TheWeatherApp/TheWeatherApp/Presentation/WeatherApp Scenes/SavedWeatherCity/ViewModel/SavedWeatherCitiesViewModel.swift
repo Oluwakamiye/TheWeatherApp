@@ -4,18 +4,16 @@
 //
 //  Created by Oluwakamiye Akindele on 19/06/2022.
 //
-
 import Foundation
 import UIKit
 
-
-protocol WeatherViewModelDelegate: AnyObject {
+protocol SavedWeatherCitiesViewModelDelegate: AnyObject {
     func updateTable()
     func navigateToCityDetailViewController(city: City)
 }
 
-final class WeatherViewModel: NSObject {
-    weak var delegate: WeatherViewModelDelegate?
+final class SavedWeatherCitiesViewModel: NSObject {
+    weak var delegate: SavedWeatherCitiesViewModelDelegate?
     private var cities = [City]()
     private(set) var displayedCities = [City]()
     private let notificationKey = ""

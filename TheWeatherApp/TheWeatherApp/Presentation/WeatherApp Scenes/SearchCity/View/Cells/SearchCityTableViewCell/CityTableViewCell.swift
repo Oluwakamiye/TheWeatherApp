@@ -7,7 +7,7 @@
 
 import UIKit
 
-class CityTableViewCell: UITableViewCell {
+final class CityTableViewCell: UITableViewCell {
     @IBOutlet private(set) weak var containingView: UIView!
     @IBOutlet private(set) weak var cityLabel: UILabel!
     @IBOutlet private(set) weak var countryLabel: UILabel!

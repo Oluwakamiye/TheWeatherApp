@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class StandardUserDefaults {
+final class StandardUserDefaultsHelper {
     private static let standard = UserDefaults.standard
     
     enum StandardName: String {
