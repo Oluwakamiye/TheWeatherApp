@@ -2,7 +2,7 @@
 //  URLConstants.swift
 //  TheWeatherApp
 //
-//  Created by Oluwakamiye Akindele on 18/06/2022.
+//  Created by Oluwakamiye Akindele on 18/07/2022.
 //
 
 import Foundation
