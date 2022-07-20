@@ -14,18 +14,18 @@ final class StandardUserDefaultsHelper {
         case cities = "Cities"
     }
 
-    // Removes cities to userdefaults
-    static func getCities() -> [City]? {
+    // Retrieves cities from userdefaults
+    static func getCities() -> [CityResponseDTO]? {
         if let decoded = standard.object(forKey: StandardName.cities.rawValue) as? Data,
-           let decodedSetting = try? JSONDecoder().decode([City].self, from: decoded) {
-            return decodedSetting
+           let decodedCities = try? JSONDecoder().decode([CityResponseDTO].self, from: decoded) {
+            return decodedCities
         } else {
             return nil
         }
     }
     
     // Saves cities to userdefaults
-    static func setCities(cities: [City]) {
+    static func setCities(cities: [CityResponseDTO]) {
         do {
             let citiesData = try JSONEncoder().encode(cities)
             standard.set(citiesData, forKey: StandardName.cities.rawValue)
