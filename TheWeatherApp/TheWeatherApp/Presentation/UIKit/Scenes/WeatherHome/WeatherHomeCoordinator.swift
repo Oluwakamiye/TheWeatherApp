@@ -24,7 +24,8 @@ final class WeatherHomeCoordinator: WeatherHomeFlow, Coordinator {
     }
     
     func start() {
-        let weatherHomeViewController = WeatherHomeViewController.makeSelf(coordinator: self)
+        let viewModel = WeatherHomeViewModel()
+        let weatherHomeViewController = WeatherHomeViewController.makeSelf(coordinator: self, viewModel: viewModel)
         navigationController?.pushViewController(weatherHomeViewController, animated: false)
     }
     

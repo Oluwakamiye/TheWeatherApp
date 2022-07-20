@@ -6,13 +6,13 @@
 //
 import Foundation
 
-protocol WeatherDetailViewModelDelegate: BaseViewModelDelegate {
+protocol WeatherHomeViewModelDelegate: BaseViewModelDelegate {
     func reloadCollectionView()
     func updateCollectionView(shouldShowCollectionView: Bool)
 }
 
-final class WeatherDetailViewModel: NSObject {
-    weak var delegate: WeatherDetailViewModelDelegate?
+final class WeatherHomeViewModel: NSObject {
+    weak var delegate: WeatherHomeViewModelDelegate?
     private(set) var cities = [City]()
     
     override init() {

@@ -70,8 +70,8 @@
 		C5C96A13285E2EF6001DB652 /* InfoDictionaryKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C96A12285E2EF6001DB652 /* InfoDictionaryKey.swift */; };
 		C5C96A33285F8983001DB652 /* AddedCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C96A32285F8982001DB652 /* AddedCityViewController.swift */; };
 		C5C96A34285F8983001DB652 /* AddedCityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C96A32285F8982001DB652 /* AddedCityViewController.swift */; };
-		C5C96A37285F8A87001DB652 /* WeatherDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C96A36285F8A87001DB652 /* WeatherDetailViewModel.swift */; };
-		C5C96A38285F8A87001DB652 /* WeatherDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C96A36285F8A87001DB652 /* WeatherDetailViewModel.swift */; };
+		C5C96A37285F8A87001DB652 /* WeatherHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C96A36285F8A87001DB652 /* WeatherHomeViewModel.swift */; };
+		C5C96A38285F8A87001DB652 /* WeatherHomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5C96A36285F8A87001DB652 /* WeatherHomeViewModel.swift */; };
 		C5CDA6F32886DEA8007C9659 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CDA6F22886DEA8007C9659 /* AppCoordinator.swift */; };
 		C5CDA6F42886DEA8007C9659 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CDA6F22886DEA8007C9659 /* AppCoordinator.swift */; };
 		C5CDA6F52886DEA8007C9659 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CDA6F22886DEA8007C9659 /* AppCoordinator.swift */; };
@@ -238,7 +238,7 @@
 		C5C96A00285DB206001DB652 /* ReleaseConfig.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = ReleaseConfig.xcconfig; sourceTree = "<group>"; };
 		C5C96A12285E2EF6001DB652 /* InfoDictionaryKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoDictionaryKey.swift; sourceTree = "<group>"; };
 		C5C96A32285F8982001DB652 /* AddedCityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddedCityViewController.swift; sourceTree = "<group>"; };
-		C5C96A36285F8A87001DB652 /* WeatherDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailViewModel.swift; sourceTree = "<group>"; };
+		C5C96A36285F8A87001DB652 /* WeatherHomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHomeViewModel.swift; sourceTree = "<group>"; };
 		C5CDA6F22886DEA8007C9659 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		C5CDA6F72886DEFC007C9659 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		C5CDA6FB2886DFC0007C9659 /* AppConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
@@ -749,7 +749,7 @@
 		C5CDA7892886EAC7007C9659 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				C5C96A36285F8A87001DB652 /* WeatherDetailViewModel.swift */,
+				C5C96A36285F8A87001DB652 /* WeatherHomeViewModel.swift */,
 				C512DEBB28779F1000162BFB /* WeatherDetailCollectionViewCellViewModel.swift */,
 			);
 			path = ViewModels;
@@ -1007,7 +1007,7 @@
 				C5CDA7412886E0EC007C9659 /* CurrentConditionsAPIImpl.swift in Sources */,
 				C5CDA6F82886DEFC007C9659 /* Coordinator.swift in Sources */,
 				C5CDA7A22887249E007C9659 /* CityResponseDTO+Response.swift in Sources */,
-				C5C96A37285F8A87001DB652 /* WeatherDetailViewModel.swift in Sources */,
+				C5C96A37285F8A87001DB652 /* WeatherHomeViewModel.swift in Sources */,
 				C59D408E286110F3009072C9 /* WeatherDetailCollectionViewCell.swift in Sources */,
 				C5CDA75F2886E0EC007C9659 /* ForecastRepositoryImpl.swift in Sources */,
 				C512DEBC28779F1000162BFB /* WeatherDetailCollectionViewCellViewModel.swift in Sources */,
@@ -1085,7 +1085,7 @@
 				C5CDA7512886E0EC007C9659 /* CurrentConditionsDataSource.swift in Sources */,
 				C5CDA7062886E03C007C9659 /* CityRepositoryProtocol.swift in Sources */,
 				C5CDA7422886E0EC007C9659 /* CurrentConditionsAPIImpl.swift in Sources */,
-				C5C96A38285F8A87001DB652 /* WeatherDetailViewModel.swift in Sources */,
+				C5C96A38285F8A87001DB652 /* WeatherHomeViewModel.swift in Sources */,
 				C5CDA7662886E0EC007C9659 /* CityRepositoryImpl.swift in Sources */,
 				C5CDA73C2886E0EC007C9659 /* CityDataSourceAPIImpl.swift in Sources */,
 				C59D409B28614304009072C9 /* StandardUserDefaultsHelper.swift in Sources */,

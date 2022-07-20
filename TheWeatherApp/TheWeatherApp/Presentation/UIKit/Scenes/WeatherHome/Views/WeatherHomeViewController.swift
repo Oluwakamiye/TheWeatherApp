@@ -36,7 +36,7 @@ final class WeatherHomeViewController: UIViewController, Storyboardable {
     }()
     
     private(set) var coordinator: WeatherHomeFlow?
-    private(set) var viewModel: WeatherDetailViewModel!
+    private(set) var viewModel: WeatherHomeViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,10 +92,10 @@ final class WeatherHomeViewController: UIViewController, Storyboardable {
         }
     }
     
-    static func makeSelf(coordinator: WeatherHomeFlow) -> WeatherHomeViewController {
+    static func makeSelf(coordinator: WeatherHomeFlow, viewModel: WeatherHomeViewModel) -> WeatherHomeViewController {
         let weatherHomeViewController = WeatherHomeViewController.create()
         weatherHomeViewController.coordinator = coordinator
-        weatherHomeViewController.viewModel = WeatherDetailViewModel()
+        weatherHomeViewController.viewModel = viewModel
         return weatherHomeViewController
     }
 }
@@ -127,7 +127,7 @@ extension WeatherHomeViewController: UICollectionViewDelegate, UICollectionViewD
 }
 
 // MARK: - ViewModel Delegates
-extension WeatherHomeViewController: WeatherDetailViewModelDelegate {
+extension WeatherHomeViewController: WeatherHomeViewModelDelegate {
     func reloadCollectionView() {
         pageControl.numberOfPages = viewModel.cities.count
         pageControl.currentPage = 0
